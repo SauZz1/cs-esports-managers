@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#10151d">
-<title>CS Esports Manager</title>
+<title>CS Esports Manager — Career Edition</title>
 <style>
 :root{--bg:#0b0f14;--panel:#151c25;--panel2:#1c2632;--line:#2a3746;--text:#edf3f8;--muted:#9aabba;--green:#b6f34a;--red:#ff5d65;--blue:#5cb8ff}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#1a2b36 0,#0b0f14 42%);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,sans-serif}
@@ -31,7 +31,7 @@ footer{text-align:center;color:#738291;font-size:11px;padding:12px}
 </head>
 <body>
 <header>
- <div class="brand"><div class="logo">CS</div><div><h1>ESPORTS MANAGER</h1><div class="sub">BUILD YOUR LEGACY · SEASON 01</div></div><div style="margin-left:auto" class="tag" id="dayTag">ДЕНЬ 1</div></div>
+ <div class="brand"><div class="logo">CS</div><div><h1>ESPORTS MANAGER</h1><div class="sub">CAREER EDITION · MANAGE EVERY DAY</div></div><div style="margin-left:auto" class="tag" id="dayTag">ДЕНЬ 1</div></div>
  <div class="stats">
   <div class="stat"><small>БЮДЖЕТ</small><b id="money">€500 000</b></div>
   <div class="stat"><small>РЕЙТИНГ</small><b id="rank">#128</b></div>
@@ -40,7 +40,7 @@ footer{text-align:center;color:#738291;font-size:11px;padding:12px}
 </header>
 <main>
 <section id="home" class="view active">
- <div class="card hero"><div class="eyebrow">ТВОЯ КАРЬЕРА НАЧИНАЕТСЯ</div><h2 id="clubTitle">Новая эра начинается здесь.</h2><p>Собери состав, прокачивай тактику и докажи, что твой клуб достоин сцены Major.</p><div class="row"><button onclick="showView('matches')">Играть матч →</button><button class="secondary" onclick="showView('roster')">Мой состав</button></div></div>
+ <div class="card hero"><div class="eyebrow">ТВОЯ КАРЬЕРА НАЧИНАЕТСЯ</div><h2 id="clubTitle">Новая эра начинается здесь.</h2><p>Собери состав, прокачивай тактику и докажи, что твой клуб достоин сцены Major.</p><div class="row" style="flex-wrap:wrap"><button onclick="showView('matches')">Играть матч →</button><button class="secondary" onclick="showView('roster')">Мой состав</button><button class="secondary" onclick="showView('calendar')">📅 Календарь</button><button class="secondary" onclick="showView('management')">🧠 Менеджмент</button></div></div>
  <div class="section-title">Обзор организации</div>
  <div class="grid2"><div class="metric"><small>Сила состава</small><b id="teamPower">72 OVR</b></div><div class="metric"><small>Победы / поражения</small><b id="record">0 / 0</b></div><div class="metric"><small>Уровень базы</small><b id="baseLevel">1</b></div><div class="metric"><small>Фанаты</small><b id="fans">1.2K</b></div></div>
  <div class="section-title" style="margin-top:20px">Последние новости</div><div class="card feed" id="news"><div>📢 Новый сезон стартовал. Пора заявить о себе.</div><div>🎯 Совет: проведи тренировку перед первым матчем.</div></div>
@@ -48,12 +48,29 @@ footer{text-align:center;color:#738291;font-size:11px;padding:12px}
 <section id="roster" class="view"><div class="section-title">Состав команды</div><div class="card"><div class="row between"><div><div class="eyebrow">ACTIVE ROSTER</div><h2 style="margin:5px 0">Пять бойцов</h2></div><span class="tag">5 / 5</span></div><div id="players"></div></div><div class="card"><h3>Трансферный рынок</h3><p class="muted tiny">Подпиши нового игрока, чтобы заменить самого слабого. Цены и характеристики — игровые.</p><div id="market"></div><button id="moreMarket" class="secondary" style="width:100%;margin-top:10px" onclick="showMorePlayers()">Показать ещё игроков</button></div></section>
 <section id="matches" class="view"><div class="section-title">Матчи и турниры</div><div class="card hero"><div class="eyebrow">БЛИЖАЙШИЙ МАТЧ · BO1</div><h2 id="opponent">vs. Team Vitality</h2><p>Карта: Mirage · Онлайн-турнир: Challenger Cup</p><div class="matchscore"><div><div class="teamname" id="ourName">YOUR TEAM</div><div class="score" id="lastUs">—</div></div><div class="muted">VS</div><div><div class="teamname" id="oppName">OPPONENT</div><div class="score" id="lastThem">—</div></div></div><div class="row"><button style="flex:1" onclick="playMatch()">▶ Симулировать матч</button><button class="secondary" onclick="train()">🎯 Тренировка</button></div></div><div class="card"><h3>Последние результаты</h3><div class="feed" id="results">Пока матчей нет. Время открыть сезон!</div></div></section>
 <section id="club" class="view"><div class="section-title">Развитие клуба</div>
-<div class="card"><div class="eyebrow">ВЫБОР КЛУБА</div><h3>Начать карьеру за существующую команду</h3><p class="muted tiny">Большая игровая лига из 150 организаций. Рейтинги и характеристики — баланс симулятора, не официальный live-рейтинг.</p><select id="teamSelect"></select><button onclick="chooseTeam()">Играть за выбранный клуб</button></div>
+<div class="card"><div class="eyebrow">ВЫБОР КЛУБА</div><h3>Начать карьеру за существующую команду</h3><p class="muted tiny">Большая лига. Реальные никнеймы включены там, где есть состав в базе; игровые OVR и зарплаты условные.</p><select id="teamSelect"></select><button onclick="chooseTeam()">Играть за выбранный клуб</button></div>
 <div class="card"><div class="eyebrow">ОРГАНИЗАЦИЯ</div><label class="tiny muted">Название клуба</label><input id="clubInput" maxlength="24" placeholder="Например, Nova Esports"><button onclick="renameClub()">Сохранить название</button></div><div class="card"><div class="row between"><div><h3 style="margin:0">Тренировочная база</h3><div class="muted tiny">Улучшение повышает эффективность тренировок.</div></div><div class="big" id="basePrice">€75K</div></div><div class="row between" style="margin-top:12px"><span>Уровень <b id="baseLevel2">1</b> / 5</span><button onclick="upgradeBase()" id="upgradeBtn">Улучшить</button></div></div><div class="card"><h3>Спонсорский контракт</h3><p class="muted tiny">Получай доход за активность команды.</p><div class="row between"><div><b id="sponsorStatus">Не подписан</b><div class="tiny muted">Бонус за победу: €18 000</div></div><button onclick="sponsor()" id="sponsorBtn">Подписать</button></div></div><div class="card"><h3>Академия и скаутинг</h3><p class="muted tiny">Развивай молодых игроков или отправляй скаута на поиск таланта.</p><div class="grid2"><div><div class="tiny muted">Уровень академии</div><div class="big" id="academyLevel">1</div><button class="secondary" onclick="upgradeAcademy()">Улучшить · €40K</button></div><div><div class="tiny muted">Отчёты скаута</div><div class="big" id="scoutReports">0</div><button onclick="scoutTalent()">Искать · €8K</button></div></div><div id="scoutResult" class="tiny muted" style="margin-top:10px">Скаут ещё не отправлен.</div></div>
 <div class="card"><h3>Тактика и карты</h3><label class="tiny muted">Карта на следующий матч</label><select id="mapSelect"><option>Mirage</option><option>Dust II</option><option>Inferno</option><option>Nuke</option><option>Ancient</option><option>Anubis</option><option>Overpass</option><option>Train</option><option>Vertigo</option></select><label class="tiny muted">Стиль игры</label><select id="tacticSelect"><option value="balanced">Сбалансированный</option><option value="aggressive">Агрессивный выход</option><option value="defensive">Оборонительная игра</option><option value="tactical">Тактические раунды</option></select><button class="secondary" onclick="saveTactics()">Сохранить тактику</button></div>
 <div class="card"><h3>Сохранение карьеры</h3><p class="muted tiny">Прогресс автоматически сохраняется в этом браузере на устройстве.</p><div class="row"><button class="secondary" onclick="saveGame()">Сохранить</button><button class="danger" onclick="resetGame()">Начать заново</button></div></div></section>
 <section id="league" class="view"><div class="section-title">Рейтинг и таблица</div><div class="card"><div class="eyebrow">CHALLENGER CIRCUIT</div><h2>Турнирная таблица</h2><div id="standings"></div></div><div class="card"><h3>Цели сезона</h3><div class="feed" id="goals"></div></div></section>
-<footer>Fan-made management prototype · Неофициальный проект, не связан с Valve или клубами.</footer>
+
+<section id="calendar" class="view">
+ <div class="section-title">Календарь и турниры</div>
+ <div class="card hero"><div class="eyebrow">КАРЬЕРА ПО ДНЯМ</div><h2 id="calendarDate">День 1 сезона</h2><p>Планируй расписание, готовь состав и участвуй в турнирах.</p><div class="row" style="flex-wrap:wrap"><button onclick="advanceDay()">⏭ Пролистать день</button><button class="secondary" onclick="showView('matches')">К матчам</button></div></div>
+ <div class="card"><h3>Будущие турниры</h3><div id="futureTournaments"></div></div>
+ <div class="card"><h3>Инвайты и участники</h3><div id="invites"></div></div>
+ <div class="card"><h3>История турниров</h3><div id="tournamentHistory" class="feed"></div></div>
+</section>
+<section id="management" class="view">
+ <div class="section-title">Менеджмент команды</div>
+ <div class="card"><h3>Проблемы команды</h3><div id="problems"></div><button onclick="solveProblem()">Решить проблему</button></div>
+ <div class="card"><h3>Тренировать аспект игрока</h3><label class="tiny muted">Игрок</label><select id="trainingPlayer"></select><label class="tiny muted">Аспект</label><select id="trainingAspect"><option value="aim">Прицел</option><option value="utility">Гранаты</option><option value="positioning">Позиционирование</option><option value="clutch">Клатчи</option><option value="discipline">Дисциплина</option><option value="communication">Коммуникация</option></select><button onclick="trainAspect()">Тренировка · €6 000</button><div id="trainingSummary" class="feed"></div></div>
+ <div class="card"><h3>Тренеры</h3><div id="coaches"></div></div>
+ <div class="card"><h3>Пул карт</h3><div id="mapMarket"></div></div>
+ <div class="card"><h3>HLTV Awards — игровая симуляция</h3><div id="hltvAwards"></div><div class="tiny muted">Это внутриигровые награды, не официальные результаты HLTV.</div></div>
+</section>
+
+<footer>Fan-made CS2 manager · Составы могут устаревать; OVR, турниры, призовые и награды симулируются. Не связан с Valve, HLTV или клубами.</footer>
 </main>
 <nav>
 <button class="active" data-view="home" onclick="showView('home')"><span>⌂</span>Главная</button>
@@ -138,7 +155,7 @@ const marketPlayers=[
 const opponents=topTeams.map(t=>({name:t.name,power:Math.max(55,96-Math.round((t.rank-1)*0.24)),rank:t.rank}));
 
 let state;
-function fresh(){return {club:"Nova Esports",money:500000,rep:12,day:1,base:1,sponsor:false,wins:0,losses:0,fans:1200,players:initialPlayers.map(p=>({...p})),market:[...marketPlayers.map(p=>({...p})),...generatedPlayers.map(p=>({...p}))],marketShown:40,history:[],last:null,trained:0,academy:1,scoutReports:0,scoutResult:"Скаут ещё не отправлен.",map:"Mirage",tactic:"balanced"}}
+function fresh(){return {club:"Nova Esports",money:500000,rep:12,day:1,base:1,sponsor:false,wins:0,losses:0,fans:1200,players:initialPlayers.map(p=>({...p})),market:realMarket("Nova Esports"),marketShown:40,history:[],last:null,trained:0,academy:1,scoutReports:0,scoutResult:"Скаут ещё не отправлен.",map:"Mirage",tactic:"balanced"}}
 function load(){try{let s=localStorage.getItem("csem_save");state=s?JSON.parse(s):fresh()}catch(e){state=fresh()} if(!Array.isArray(state.market))state.market=[];const existing=new Set(state.market.map(p=>p.name));generatedPlayers.forEach(p=>{if(!existing.has(p.name))state.market.push({...p})});if(!state.marketShown)state.marketShown=40;if(!Array.isArray(state.history))state.history=[];if(!Array.isArray(state.players)||state.players.length<5)state.players=initialPlayers.map(p=>({...p}));if(typeof state.money!=="number")state.money=500000;}
 function saveGame(){localStorage.setItem("csem_save",JSON.stringify(state));toast("Карьера сохранена ✓")}
 function money(n){return "€"+Math.round(n).toLocaleString("de-DE")}
@@ -205,15 +222,124 @@ function chooseTeam(){
  if(name==="Nova Esports"){state.club=name;addNews("🛡️ Создан собственный клуб Nova Esports.");saveGame();render();return}
  const t=topTeams.find(x=>x.name===name);if(!t)return;
  if(!confirm("Начать карьеру за "+name+"? Текущий состав и статистика будут заменены."))return;
- state.club=name;let names=realRosters[name]||[name+"_A",name+"_B",name+"_C",name+"_D",name+"_E"];
+ state.club=name;let names=proDB[name]||realRosters[name]; if(!names){toast("Для этого клуба пока нет состава с проверяемыми реальными никнеймами в базе.");return;}
  let avg=Math.max(62,96-Math.round(t.rank*0.55));
- state.players=names.map((n,i)=>({name:n,role:["AWPer","Rifler","Entry Fragger","Lurker","IGL"][i],ovr:Math.max(55,Math.min(98,avg+Math.round(Math.random()*8-4))),salary:Math.round((avg*avg)*2.4),emoji:["🎯","⚡","🔥","🐺","🧠"][i]}));
+ state.players=names.map((n,i)=>({name:n,role:["AWPer","Rifler","Entry Fragger","Lurker","IGL"][i],ovr:Math.max(55,Math.min(98,avg+Math.round(Math.random()*4-2))),salary:Math.round((avg*avg)*2.4),emoji:["🎯","⚡","🔥","🐺","🧠"][i],chemistry:70,aspects:{aim:avg-2+i,utility:avg-5+i,positioning:avg-3+i,clutch:avg-6+i,discipline:avg-1+i,communication:avg-4+i}})); state.market=realMarket(name);state.marketShown=40;state.coaches=[];state.ownedMaps=["Mirage","Dust II","Inferno"];state.tournaments=tourStore.map(t=>({...t,status:t.invite?"Ожидает инвайта":"Открыта"}));state.tournamentHistory=[];
  state.money=Math.max(180000,620000-t.rank*7000);state.rep=Math.max(15,85-t.rank);state.wins=0;state.losses=0;state.history=[];state.day=1;state.last=null;state.fans=Math.max(900,150000-t.rank*2600);
  addNews("🏁 Карьера началась за "+name+". Состав загружен в игровой симулятор.");saveGame();render();toast("Карьера за "+name+" началась!");
 }
 function upgradeAcademy(){let lvl=state.academy||1,cost=40000*lvl;if(lvl>=5){toast("Академия уже максимального уровня");return}if(state.money<cost){toast("Недостаточно средств: нужно "+money(cost));return}state.money-=cost;state.academy=lvl+1;state.rep=Math.min(100,state.rep+1);addNews("🎓 Академия улучшена до уровня "+state.academy+".");saveGame();render();toast("Академия улучшена!")}
 function scoutTalent(){if(state.money<8000){toast("Нужно €8 000 на скаутинг");return}state.money-=8000;state.scoutReports=(state.scoutReports||0)+1;let names=["Vex","K1ro","N0va","Pixel","Raze","Echo","Blitz","Fable","Keen","ZeroX"];let name=names[Math.floor(Math.random()*names.length)]+Math.floor(Math.random()*99);let lvl=Math.min(95,55+(state.academy||1)*5+Math.floor(Math.random()*15));let player={name,role:["AWPer","Rifler","Entry Fragger","Lurker","IGL"][Math.floor(Math.random()*5)],ovr:lvl,cost:lvl*1800,salary:lvl*120,emoji:"🌟"};state.market.unshift(player);state.scoutResult="Найден талант "+name+" · "+lvl+" OVR · трансфер "+money(player.cost)+". Он добавлен на рынок.";addNews("🔎 Скаут нашёл игрока "+name+" ("+lvl+" OVR).");saveGame();render();toast("Найден талант: "+name)}
 function saveTactics(){state.map=document.getElementById("mapSelect").value;state.tactic=document.getElementById("tacticSelect").value;saveGame();render();toast("Карта и тактика сохранены")}
+
+
+// Career Edition: real professional nicknames from the roster snapshot embedded in this prototype.
+// Names/teams may change; all OVR values, salaries, events and results are game simulation.
+const proDB = Object.entries(realRosters).reduce((all,[team,names])=>{
+ all[team]=names.filter(n=>n && !n.includes("_"));
+ return all;
+},{});
+Object.assign(proDB, {
+ "Team Spirit":["sh1ro","magixx","tN1R","zont1x","donk"],
+ "Team Vitality":["apEX","ropz","ZywOo","flameZ","mezii"],
+ "MOUZ":["torzsi","Spinx","xertioN","PR","xelex"],
+ "FURIA":["FalleN","yuurih","YEKINDAR","KSCERATO","molodoy"],
+ "Team Falcons":["karrigan","NiKo","TeSeS","m0NESY","kyousuke"],
+ "Aurora Gaming":["XANTARES","woxic","Jimpphat","kyxsan","Wicadia"],
+ "Legacy":["arT","dumau","latto","n1ssim","try"],
+ "G2 Esports":["huNter-","NertZ","r1nkle","HeavyGod","MATYS"],
+ "Natus Vincere":["Aleksib","iM","b1t","w0nderful","makazze"]
+});
+const coachStore=[
+ {name:"Danny 'zonic' Sørensen",spec:"Подготовка",cost:70000,bonus:4},
+ {name:"Rémy 'XTQZZZ' Quoniam",spec:"Дисциплина",cost:60000,bonus:3},
+ {name:"Sergey 'hally' Shavaev",spec:"Развитие игроков",cost:55000,bonus:4},
+ {name:"Eetu 'sAw' Saha",spec:"Аналитика",cost:50000,bonus:3},
+ {name:"Aleksandar 'kassad' Trifunović",spec:"Тактика",cost:45000,bonus:3}
+];
+const mapStore=[["Mirage",12000],["Dust II",12000],["Inferno",12000],["Nuke",15000],["Ancient",15000],["Anubis",14000],["Overpass",16000],["Train",16000],["Vertigo",13000]];
+const tourStore=[
+ {name:"Open Qualifier",day:3,tier:"Открытая квалификация",prize:25000,invite:false},
+ {name:"Challenger Cup",day:6,tier:"Онлайн BO3",prize:60000,invite:true},
+ {name:"Regional Masters",day:12,tier:"Региональный LAN",prize:150000,invite:true},
+ {name:"Pro League",day:18,tier:"Групповой этап",prize:250000,invite:true},
+ {name:"Major Qualifier",day:25,tier:"Квалификация Major",prize:400000,invite:true},
+ {name:"Major Championship",day:35,tier:"Major · плей-офф",prize:1000000,invite:true},
+ {name:"Winter Invitational",day:43,tier:"Пригласительный",prize:300000,invite:true},
+ {name:"World Finals",day:55,tier:"Финал сезона",prize:1500000,invite:true}
+];
+const aspectsLabel={aim:"Прицел",utility:"Гранаты",positioning:"Позиционирование",clutch:"Клатчи",discipline:"Дисциплина",communication:"Коммуникация"};
+function realMarket(club){
+ let a=[];
+ Object.entries(proDB).forEach(([team,names],ti)=>names.forEach((name,i)=>{
+  if(team===club)return;
+  let ovr=Math.max(65,95-ti+((i*7)%5));
+  a.push({name,team,role:["AWPer","Rifler","Entry Fragger","Lurker","IGL"][i%5],ovr,cost:ovr*ovr*24,salary:Math.round(ovr*ovr*1.4),emoji:["🎯","⚡","🔥","🐺","🧠"][i%5],chemistry:65,aspects:{aim:ovr-2,utility:ovr-5,positioning:ovr-3,clutch:ovr-6,discipline:ovr-1,communication:ovr-4}});
+ }));
+ return a;
+}
+function upgradedFresh(){
+ let names=proDB["Team Spirit"]||["sh1ro","magixx","tN1R","zont1x","donk"];
+ return {club:"Nova Esports",money:500000,rep:12,day:1,base:1,sponsor:false,wins:0,losses:0,fans:1200,players:names.map((name,i)=>({name,role:["AWPer","Rifler","Entry Fragger","Lurker","IGL"][i],ovr:[91,84,86,85,96][i],salary:30000,emoji:["🎯","⚡","🔥","🐺","🧠"][i],chemistry:75,aspects:{aim:80+i,utility:74+i,positioning:78+i,clutch:70+i,discipline:81+i,communication:77+i}})),market:realMarket("Nova Esports"),marketShown:40,history:[],last:null,trained:0,academy:1,scoutReports:0,scoutResult:"Скаут ещё не отправлен.",map:"Mirage",tactic:"balanced",coaches:[],ownedMaps:["Mirage","Dust II","Inferno"],tournaments:tourStore.map(t=>({...t,status:t.invite?"Ожидает инвайта":"Открыта"})),tournamentHistory:[],problem:{title:"Коммуникация просела",detail:"Команда теряет раунды из-за несогласованных решений.",cost:4000,rep:1},seasonAwards:[]};
+}
+function load(){
+ try{const raw=localStorage.getItem("csem_save");state=raw?JSON.parse(raw):upgradedFresh();}catch(e){state=upgradedFresh();}
+ if(!Array.isArray(state.players)||state.players.length<5)state=upgradedFresh();
+ if(!Array.isArray(state.coaches))state.coaches=[];
+ if(!Array.isArray(state.ownedMaps))state.ownedMaps=["Mirage","Dust II","Inferno"];
+ if(!Array.isArray(state.tournaments))state.tournaments=tourStore.map(t=>({...t,status:t.invite?"Ожидает инвайта":"Открыта"}));
+ if(!Array.isArray(state.tournamentHistory))state.tournamentHistory=[];
+ if(!state.problem)state.problem={title:"Падение морали",detail:"Команда устала от плотного расписания.",cost:5000,rep:1};
+ state.players.forEach(p=>{if(!p.aspects)p.aspects={aim:p.ovr-2,utility:p.ovr-5,positioning:p.ovr-3,clutch:p.ovr-6,discipline:p.ovr-1,communication:p.ovr-4};if(!Number.isFinite(p.chemistry))p.chemistry=65;});
+ // Only real names in the embedded professional roster list are kept in the transfer market.
+ state.market=(state.market||[]).filter(p=>Object.values(proDB).flat().includes(p.name));
+ if(!state.market.length)state.market=realMarket(state.club);
+}
+function fresh(){return upgradedFresh();}
+function advanceDay(){
+ state.day++;
+ const daily=state.players.reduce((n,p)=>n+Math.round((p.salary||10000)/30),0)+state.coaches.length*450;
+ state.money=Math.max(0,state.money-daily);
+ if(state.sponsor&&state.day%7===0)state.money+=22000;
+ if(state.day%7===0){state.rep=Math.min(100,state.rep+1);state.fans+=150;}
+ (state.tournaments||[]).filter(t=>t.day===state.day).forEach(t=>{
+  if(["Инвайт получен","Заявка подана","Открыта"].includes(t.status)){
+   const win=power()+Math.random()*15>76,prize=win?Math.round(t.prize*.25):Math.round(t.prize*.04);
+   state.money+=prize;state.tournamentHistory.unshift({day:state.day,text:t.name+": "+(win?"успешный результат":"вылет")+" · призовые "+money(prize)});t.status=win?"Завершён — успех":"Завершён";
+  } else {state.tournamentHistory.unshift({day:state.day,text:t.name+": не удалось попасть в участников"});t.status="Пропущен";}
+ });
+ if(Math.random()<.3){const list=[["Падение морали","Команда устала от плотного расписания.",5000],["Конфликт ролей","Игроки спорят о распределении ролей.",4000],["Слабая подготовка карты","Соперники изучили вашу любимую карту.",6000],["Проблемы с коммуникацией","Команда не обменивается информацией.",3500]];const p=list[Math.floor(Math.random()*list.length)];state.problem={title:p[0],detail:p[1],cost:p[2],rep:1};}
+ state.trained=0;addNews("📅 День "+state.day+". Содержание состава: "+money(daily)+".");saveGame();render();toast("Наступил день "+state.day);
+}
+function enterTournament(i){
+ const upcoming=state.tournaments.filter(t=>t.day>=state.day),t=upcoming[i];if(!t)return;
+ if(t.invite){if(state.rep<18&&power()<78){toast("Нужно больше репутации или сила состава 78+");return;}t.status="Инвайт получен";t.participants="Spirit, Vitality, MOUZ, NAVI, Falcons, FURIA, G2";}
+ else t.status="Заявка подана";
+ addNews((t.invite?"✉️ Получен инвайт: ":"📨 Заявка отправлена: ")+t.name);saveGame();render();toast(t.invite?"Инвайт получен":"Заявка отправлена");
+}
+function solveProblem(){if(!state.problem){toast("Проблем нет");return;}if(state.money<state.problem.cost){toast("Не хватает денег");return;}state.money-=state.problem.cost;addNews("🧩 Решена проблема: "+state.problem.title);state.problem=null;state.rep=Math.min(100,state.rep+1);saveGame();render();toast("Проблема решена");}
+function trainAspect(){
+ const p=state.players[Number(document.getElementById("trainingPlayer").value||0)],key=document.getElementById("trainingAspect").value;if(!p)return;
+ if(state.money<6000){toast("Нужно €6 000");return;}state.money-=6000;
+ const bonus=state.coaches.reduce((n,c)=>n+c.bonus,0)>0?1:0,before=p.aspects[key]||p.ovr-3;p.aspects[key]=Math.min(99,before+2+bonus);if(p.aspects[key]>p.ovr)p.ovr=Math.min(99,p.ovr+1);
+ document.getElementById("trainingSummary").innerHTML=`<div>🎯 ${p.name}: ${aspectsLabel[key]} ${before} → ${p.aspects[key]}${bonus?" · бонус тренера":""}</div>`;
+ addNews("🎯 "+p.name+" улучшил аспект «"+aspectsLabel[key]+"».");saveGame();render();toast("Тренировка завершена");
+}
+function hireCoach(name){const c=coachStore.find(x=>x.name===name);if(!c||state.coaches.some(x=>x.name===name))return;if(state.money<c.cost){toast("Не хватает денег");return;}state.money-=c.cost;state.coaches.push({...c});addNews("🧑‍🏫 Нанят тренер "+c.name);saveGame();render();toast("Тренер нанят");}
+function buyMap(name){const m=mapStore.find(x=>x[0]===name);if(!m||(state.ownedMaps||[]).includes(name))return;if(state.money<m[1]){toast("Не хватает денег");return;}state.money-=m[1];state.ownedMaps.push(name);state.map=name;saveGame();render();toast("Карта куплена");}
+function renderCareer(){
+ const date=document.getElementById("calendarDate");if(date)date.textContent="День "+state.day+" сезона";
+ const fut=document.getElementById("futureTournaments");if(fut)fut.innerHTML=state.tournaments.filter(t=>t.day>=state.day).slice(0,8).map(t=>`<div class="player"><div class="avatar">🏆</div><div class="grow"><b>${t.name}</b><div class="tiny muted">День ${t.day} · ${t.tier} · приз ${money(t.prize)}</div><div class="tiny">${t.status}</div></div><button class="secondary" onclick="enterTournament(${state.tournaments.filter(x=>x.day>=state.day).indexOf(t)})">${t.invite?"Инвайт":"Заявка"}</button></div>`).join("")||"Ближайших турниров нет.";
+ const inv=document.getElementById("invites");if(inv)inv.innerHTML=state.tournaments.filter(t=>["Инвайт получен","Заявка подана","Ожидает инвайта"].includes(t.status)).slice(0,7).map(t=>`<div class="feed"><div>✉️ ${t.name}: ${t.status}. Участники: ${t.participants||"Spirit, Vitality, MOUZ, NAVI, Falcons, FURIA, G2"}</div></div>`).join("")||"Нет активных инвайтов.";
+ const hist=document.getElementById("tournamentHistory");if(hist)hist.innerHTML=state.tournamentHistory.slice(0,8).map(t=>`<div>День ${t.day}: ${t.text}</div>`).join("")||"Истории пока нет.";
+ const prob=document.getElementById("problems");if(prob)prob.innerHTML=state.problem?`<div class="metric"><b>⚠️ ${state.problem.title}</b><p class="tiny muted">${state.problem.detail}</p><div class="tiny">Решение: ${money(state.problem.cost)}</div></div>`:"<div>✅ Срочных проблем нет.</div>";
+ const sel=document.getElementById("trainingPlayer");if(sel){let old=sel.value;sel.innerHTML=state.players.map((p,i)=>`<option value="${i}">${p.name}</option>`).join("");if(old!=="")sel.value=old;}
+ const co=document.getElementById("coaches");if(co)co.innerHTML=state.coaches.map(c=>`<div class="player"><div class="grow"><b>${c.name}</b><div class="tiny muted">${c.spec} · бонус +${c.bonus}</div></div><span class="tag">Нанят</span></div>`).join("")+coachStore.filter(c=>!state.coaches.some(x=>x.name===c.name)).map(c=>`<div class="player"><div class="grow"><b>${c.name}</b><div class="tiny muted">${c.spec} · бонус +${c.bonus}</div></div><button class="secondary" onclick="hireCoach(${JSON.stringify(c.name)})">${money(c.cost)}</button></div>`).join("");
+ const maps=document.getElementById("mapMarket");if(maps)maps.innerHTML=mapStore.map(m=>`<div class="player"><div class="grow"><b>${m[0]}</b><div class="tiny muted">${state.ownedMaps.includes(m[0])?"Уже куплена":"Карта для тренировок и матчей"}</div></div>${state.ownedMaps.includes(m[0])?'<span class="tag">Есть</span>':`<button class="secondary" onclick="buyMap('${m[0]}')">${money(m[1])}</button>`}</div>`).join("");
+ const aw=document.getElementById("hltvAwards");if(aw){const best=[...state.players].sort((a,b)=>b.ovr-a.ovr)[0];aw.innerHTML=`<div class="player"><div class="avatar">🥇</div><div class="grow"><b>Игрок сезона</b><div class="tiny muted">${best?.name||"—"} · лидер по игровому OVR</div></div></div><div class="player"><div class="avatar">🎯</div><div class="grow"><b>Лучший снайпер</b><div class="tiny muted">${state.players.find(p=>p.role==="AWPer")?.name||best?.name||"—"}</div></div></div><div class="player"><div class="avatar">🧑‍🏫</div><div class="grow"><b>Тренер года</b><div class="tiny muted">${state.coaches[0]?.name||"Пока не определён"}</div></div></div>`;}
+}
+const oldRender=render;
+render=function(){oldRender();renderCareer();};
 
 load();render();
 </script>
