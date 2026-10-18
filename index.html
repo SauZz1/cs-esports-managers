@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10151d">
+<title>CS Esports Manager</title>
+<style>
+:root{--bg:#0b0f14;--panel:#151c25;--panel2:#1c2632;--line:#2a3746;--text:#edf3f8;--muted:#9aabba;--green:#b6f34a;--red:#ff5d65;--blue:#5cb8ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#1a2b36 0,#0b0f14 42%);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,sans-serif}
+header{padding:20px 16px 14px;border-bottom:1px solid var(--line);background:#0b0f14eF;position:sticky;top:0;z-index:4}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;display:grid;place-items:center;background:var(--green);color:#111;font-weight:1000;font-style:italic;clip-path:polygon(0 0,100% 0,82% 100%,0 82%);font-size:17px}
+h1{font-size:19px;margin:0;letter-spacing:.5px} .sub{font-size:11px;color:var(--muted);letter-spacing:2px;margin-top:3px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:15px}.stat{background:var(--panel);border:1px solid var(--line);padding:10px;border-radius:10px}.stat small{display:block;color:var(--muted);font-size:11px}.stat b{font-size:16px}
+main{padding:14px 14px 92px;max-width:780px;margin:auto}.view{display:none}.view.active{display:block}.section-title{font-size:18px;margin:6px 0 12px}
+.card{background:linear-gradient(145deg,var(--panel),#11171f);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.hero{background:linear-gradient(110deg,#263c26,#15231f 55%,#17212c);border-color:#42593a}.eyebrow{font-size:11px;color:var(--green);letter-spacing:1.8px;font-weight:800}.hero h2{font-size:23px;margin:8px 0}.hero p{color:#c0cbd1;margin:0 0 13px;line-height:1.5}
+.row{display:flex;align-items:center;gap:10px}.between{justify-content:space-between}.grow{flex:1;min-width:0}.muted{color:var(--muted)}.tiny{font-size:12px}.big{font-size:25px;font-weight:850}.tag{font-size:11px;padding:4px 7px;border:1px solid #40505f;border-radius:6px;color:#cbd7e2;white-space:nowrap}
+button,select,input{font:inherit}button{border:0;border-radius:9px;padding:11px 13px;font-weight:800;background:var(--green);color:#12170d;cursor:pointer}button.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}button.danger{background:#3b2026;color:#ffb6bb;border:1px solid #683039}button:disabled{opacity:.45}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:5;display:grid;grid-template-columns:repeat(5,1fr);gap:3px;padding:8px 5px calc(8px + env(safe-area-inset-bottom));background:#0d1219f5;border-top:1px solid var(--line);backdrop-filter:blur(12px)}
+nav button{background:transparent;color:var(--muted);padding:8px 2px;font-size:10px;border-radius:8px}nav button span{display:block;font-size:19px;margin-bottom:3px}nav button.active{background:#253126;color:var(--green)}
+.player{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.player:last-child{border:0}.avatar{width:40px;height:40px;display:grid;place-items:center;background:#293747;border-radius:9px;font-weight:900;color:var(--green)}
+.rating{font-weight:900;color:var(--green)}.bar{height:6px;background:#293441;border-radius:8px;overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:var(--green)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric{background:var(--panel2);border-radius:10px;padding:11px}.metric small{color:var(--muted);display:block}.metric b{font-size:18px}
+select,input{width:100%;background:#0d131a;color:var(--text);border:1px solid var(--line);padding:11px;border-radius:8px;margin:6px 0 10px}
+.matchscore{display:flex;align-items:center;justify-content:space-around;text-align:center;padding:17px 0}.score{font-size:32px;font-weight:950}.teamname{font-weight:800;max-width:115px}.feed{font-size:13px;color:#c7d3dc;line-height:1.65}.feed div{padding:6px 0;border-bottom:1px solid #27313b}
+.toast{position:fixed;top:12px;left:50%;transform:translateX(-50%);background:#d6ff9c;color:#15200a;padding:10px 16px;border-radius:10px;z-index:10;font-weight:800;display:none;max-width:90%;box-shadow:0 6px 30px #0008}
+footer{text-align:center;color:#738291;font-size:11px;padding:12px}
+@media(min-width:600px){main{padding-top:22px}.stats{max-width:560px}.hero{padding:22px}.grid2{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="logo">CS</div><div><h1>ESPORTS MANAGER</h1><div class="sub">BUILD YOUR LEGACY · SEASON 01</div></div><div style="margin-left:auto" class="tag" id="dayTag">ДЕНЬ 1</div></div>
+ <div class="stats">
+  <div class="stat"><small>БЮДЖЕТ</small><b id="money">€500 000</b></div>
+  <div class="stat"><small>РЕЙТИНГ</small><b id="rank">#128</b></div>
+  <div class="stat"><small>РЕПУТАЦИЯ</small><b id="rep">12/100</b></div>
+ </div>
+</header>
+<main>
+<section id="home" class="view active">
+ <div class="card hero"><div class="eyebrow">ТВОЯ КАРЬЕРА НАЧИНАЕТСЯ</div><h2 id="clubTitle">Новая эра начинается здесь.</h2><p>Собери состав, прокачивай тактику и докажи, что твой клуб достоин сцены Major.</p><div class="row"><button onclick="showView('matches')">Играть матч →</button><button class="secondary" onclick="showView('roster')">Мой состав</button></div></div>
+ <div class="section-title">Обзор организации</div>
+ <div class="grid2"><div class="metric"><small>Сила состава</small><b id="teamPower">72 OVR</b></div><div class="metric"><small>Победы / поражения</small><b id="record">0 / 0</b></div><div class="metric"><small>Уровень базы</small><b id="baseLevel">1</b></div><div class="metric"><small>Фанаты</small><b id="fans">1.2K</b></div></div>
+ <div class="section-title" style="margin-top:20px">Последние новости</div><div class="card feed" id="news"><div>📢 Новый сезон стартовал. Пора заявить о себе.</div><div>🎯 Совет: проведи тренировку перед первым матчем.</div></div>
+</section>
+<section id="roster" class="view"><div class="section-title">Состав команды</div><div class="card"><div class="row between"><div><div class="eyebrow">ACTIVE ROSTER</div><h2 style="margin:5px 0">Пять бойцов</h2></div><span class="tag">5 / 5</span></div><div id="players"></div></div><div class="card"><h3>Трансферный рынок</h3><p class="muted tiny">Подпиши нового игрока, чтобы заменить самого слабого. Цены и характеристики — игровые.</p><div id="market"></div><button id="moreMarket" class="secondary" style="width:100%;margin-top:10px" onclick="showMorePlayers()">Показать ещё игроков</button></div></section>
+<section id="matches" class="view"><div class="section-title">Матчи и турниры</div><div class="card hero"><div class="eyebrow">БЛИЖАЙШИЙ МАТЧ · BO1</div><h2 id="opponent">vs. Team Vitality</h2><p>Карта: Mirage · Онлайн-турнир: Challenger Cup</p><div class="matchscore"><div><div class="teamname" id="ourName">YOUR TEAM</div><div class="score" id="lastUs">—</div></div><div class="muted">VS</div><div><div class="teamname" id="oppName">OPPONENT</div><div class="score" id="lastThem">—</div></div></div><div class="row"><button style="flex:1" onclick="playMatch()">▶ Симулировать матч</button><button class="secondary" onclick="train()">🎯 Тренировка</button></div></div><div class="card"><h3>Последние результаты</h3><div class="feed" id="results">Пока матчей нет. Время открыть сезон!</div></div></section>
+<section id="club" class="view"><div class="section-title">Развитие клуба</div>
+<div class="card"><div class="eyebrow">ВЫБОР КЛУБА</div><h3>Начать карьеру за существующую команду</h3><p class="muted tiny">Большая игровая лига из 150 организаций. Рейтинги и характеристики — баланс симулятора, не официальный live-рейтинг.</p><select id="teamSelect"></select><button onclick="chooseTeam()">Играть за выбранный клуб</button></div>
+<div class="card"><div class="eyebrow">ОРГАНИЗАЦИЯ</div><label class="tiny muted">Название клуба</label><input id="clubInput" maxlength="24" placeholder="Например, Nova Esports"><button onclick="renameClub()">Сохранить название</button></div><div class="card"><div class="row between"><div><h3 style="margin:0">Тренировочная база</h3><div class="muted tiny">Улучшение повышает эффективность тренировок.</div></div><div class="big" id="basePrice">€75K</div></div><div class="row between" style="margin-top:12px"><span>Уровень <b id="baseLevel2">1</b> / 5</span><button onclick="upgradeBase()" id="upgradeBtn">Улучшить</button></div></div><div class="card"><h3>Спонсорский контракт</h3><p class="muted tiny">Получай доход за активность команды.</p><div class="row between"><div><b id="sponsorStatus">Не подписан</b><div class="tiny muted">Бонус за победу: €18 000</div></div><button onclick="sponsor()" id="sponsorBtn">Подписать</button></div></div><div class="card"><h3>Академия и скаутинг</h3><p class="muted tiny">Развивай молодых игроков или отправляй скаута на поиск таланта.</p><div class="grid2"><div><div class="tiny muted">Уровень академии</div><div class="big" id="academyLevel">1</div><button class="secondary" onclick="upgradeAcademy()">Улучшить · €40K</button></div><div><div class="tiny muted">Отчёты скаута</div><div class="big" id="scoutReports">0</div><button onclick="scoutTalent()">Искать · €8K</button></div></div><div id="scoutResult" class="tiny muted" style="margin-top:10px">Скаут ещё не отправлен.</div></div>
+<div class="card"><h3>Тактика и карты</h3><label class="tiny muted">Карта на следующий матч</label><select id="mapSelect"><option>Mirage</option><option>Dust II</option><option>Inferno</option><option>Nuke</option><option>Ancient</option><option>Anubis</option><option>Overpass</option><option>Train</option><option>Vertigo</option></select><label class="tiny muted">Стиль игры</label><select id="tacticSelect"><option value="balanced">Сбалансированный</option><option value="aggressive">Агрессивный выход</option><option value="defensive">Оборонительная игра</option><option value="tactical">Тактические раунды</option></select><button class="secondary" onclick="saveTactics()">Сохранить тактику</button></div>
+<div class="card"><h3>Сохранение карьеры</h3><p class="muted tiny">Прогресс автоматически сохраняется в этом браузере на устройстве.</p><div class="row"><button class="secondary" onclick="saveGame()">Сохранить</button><button class="danger" onclick="resetGame()">Начать заново</button></div></div></section>
+<section id="league" class="view"><div class="section-title">Рейтинг и таблица</div><div class="card"><div class="eyebrow">CHALLENGER CIRCUIT</div><h2>Турнирная таблица</h2><div id="standings"></div></div><div class="card"><h3>Цели сезона</h3><div class="feed" id="goals"></div></div></section>
+<footer>Fan-made management prototype · Неофициальный проект, не связан с Valve или клубами.</footer>
+</main>
+<nav>
+<button class="active" data-view="home" onclick="showView('home')"><span>⌂</span>Главная</button>
+<button data-view="roster" onclick="showView('roster')"><span>♟</span>Состав</button>
+<button data-view="matches" onclick="showView('matches')"><span>◉</span>Матчи</button>
+<button data-view="club" onclick="showView('club')"><span>⬡</span>Клуб</button>
+<button data-view="league" onclick="showView('league')"><span>♜</span>Лига</button>
+</nav><div id="toast" class="toast"></div>
+<script>
+const topTeams = [{"name": "Team Spirit", "rank": 1, "points": 972}, {"name": "Team Vitality", "rank": 2, "points": 894}, {"name": "MOUZ", "rank": 3, "points": 692}, {"name": "FURIA", "rank": 4, "points": 527}, {"name": "Team Falcons", "rank": 5, "points": 488}, {"name": "Aurora Gaming", "rank": 6, "points": 461}, {"name": "Legacy", "rank": 7, "points": 379}, {"name": "G2 Esports", "rank": 8, "points": 338}, {"name": "FUT Esports", "rank": 9, "points": 319}, {"name": "Natus Vincere", "rank": 10, "points": 216}, {"name": "PARIVISION", "rank": 11, "points": 178}, {"name": "MIBR", "rank": 12, "points": 163}, {"name": "1win", "rank": 13, "points": 159}, {"name": "BETBOOM", "rank": 14, "points": 148}, {"name": "Astralis", "rank": 15, "points": 133}, {"name": "FaZe Clan", "rank": 16, "points": 129}, {"name": "9z Team", "rank": 17, "points": 124}, {"name": "M80", "rank": 18, "points": 109}, {"name": "B8", "rank": 19, "points": 99}, {"name": "The MongolZ", "rank": 20, "points": 96}, {"name": "GamerLegion", "rank": 21, "points": 92}, {"name": "3DMAX", "rank": 22, "points": 89}, {"name": "Alliance", "rank": 23, "points": 81}, {"name": "Inner Circle", "rank": 24, "points": 80}, {"name": "Team Liquid", "rank": 25, "points": 77}, {"name": "HEROIC", "rank": 26, "points": 67}, {"name": "BIG", "rank": 27, "points": 66}, {"name": "NRG", "rank": 28, "points": 66}, {"name": "paiN Gaming", "rank": 29, "points": 61}, {"name": "Luminosity", "rank": 30, "points": 57}, {"name": "JiJieHao", "rank": 31, "points": 55}, {"name": "100 Thieves", "rank": 32, "points": 55}, {"name": "TYLOO", "rank": 33, "points": 52}, {"name": "Lynn Vision", "rank": 34, "points": 51}, {"name": "HOTU", "rank": 35, "points": 51}, {"name": "5star", "rank": 36, "points": 50}, {"name": "Ninjas in Pyjamas", "rank": 37, "points": 50}, {"name": "Nemiga", "rank": 38, "points": 47}, {"name": "K27", "rank": 39, "points": 42}, {"name": "DENDELE", "rank": 40, "points": 42}, {"name": "Wildcard", "rank": 41, "points": 38}, {"name": "BC.Game", "rank": 42, "points": 36}, {"name": "Sangal", "rank": 43, "points": 35}, {"name": "ECSTATIC", "rank": 44, "points": 34}, {"name": "SINNERS", "rank": 45, "points": 32}, {"name": "Eternal Fire", "rank": 46, "points": 31}, {"name": "fnatic", "rank": 47, "points": 31}, {"name": "FOKUS", "rank": 48, "points": 29}, {"name": "Betclic", "rank": 49, "points": 27}, {"name": "BBL", "rank": 50, "points": 27}];
+
+// Дополнительные организации для глубокой мировой лиги. Это игровые клубы, а не утверждение об официальном рейтинге.
+const expansionTeams = [
+"Complexity Gaming","Cloud9","ENCE","OG Esports","Evil Geniuses","Gen.G Esports","Imperial Esports","RED Canids","Sharks Esports","Fluxo","Case Esports","BESTIA","ODDIK","W7M Esports"," paiN Academy","MIBR Academy","FURIA Academy","Spirit Academy","NAVI Junior","MOUZ NXT","Young Ninjas","BIG Academy","Astralis Talent","Fnatic Rising","ENCE Academy","Monte","Monte Gen","Endpoint","Into the Breach","Dynamo Eclot","UNiTY esports","Zero Tenacity","Passion UA","Rebels Gaming","Permitta Esports","Anonymo Esports","Illuminar Gaming","AGO esports","PGE Turow","Sashi Esport","Copenhagen Wolves","ECLOT","Enterprise Esports","ALTERNATE aTTaX","GUN5","AMKAL ESPORTS","Space","9 Pandas","FORZE Esports","K23","Project G","Nexus Gaming","The Prodigies","Team Secret","GenOne","Arctic Raptors","MOUZ Academy","FURIA fe","Imperial Academy","ShindeN","VELOX","RED Canids Academy","BESTIA Academy","ODDIK Academy","Sharks Academy","Fluxo Academy","Dusty Roots","Hawks","Galorys","Vikings KR","Bounty Hunters","KRÜ Esports","Isurus","Furious Gaming","Malvinas Gaming","Wildcard Academy","Nouns Esports","Party Astronauts","Elevate","Mythic","FLUFFY AIMERS","Take Flyte","BOSS","LAG Gaming","NRG Academy","Limitless"," timbermen","Chinggis Warriors","Rare Atom","JiJieHao Academy","NewHappy","Lynn Vision Academy","Wings Up Gaming","TYLOO Academy","The Huns Esports","ATOX Esports","Eruption","IHC Esports","Team NKT","Aravt","GR Gaming","Gods Reign","Reckoning Esports","True Rippers","Velocity Gaming","Enigma Gaming","Wolves Esports","JiJieHao Youth","Rooster","Mindfreak","FlyQuest RED","VERTEX Esports","Housebets","sunday school","DXA","Bad News Kangaroos","LookingForOrg","KZG","Apeks","Lilmix","Alliance Academy","FAVBET Team","PCIFIC Esports","The Suspect","ESC Gaming","MASONIC","Lilmix Academy","Kappa Bar","Lynn Vision Young","Team Sampi","RUBY","Nemiga Academy","ECSTATIC Academy","Sangal Academy","SINNERS Academy","Fokus Academy","FAVBET Academy","Team 500","CYBERSHOKE Esports","Rhyno Esports","SAW Academy","KOI","Heretics","Movistar KOI","Giants Gaming","Case Academy","Los Alpacas","Fourteen Esports","GTZ Esports","Make Your Destiny","ALQADSIAH","Onyx Ravens","Bravado Gaming","White Rabbit Gaming","Team Falcons Academy","Aurora Young Blud","BetBoom Team Academy","PARIVISION Academy","B8 Academy","GamerLegion Academy","G2 Ares","FaZe Academy","Liquid Academy","M80 Academy"
+];
+for (const name of expansionTeams) if (!topTeams.some(t => t.name.trim() === name.trim())) topTeams.push({name:name.trim(), rank:topTeams.length+1, points:Math.max(1, 50-(topTeams.length-49))});
+topTeams.forEach((t,i)=>{t.rank=i+1; if(!Number.isFinite(t.points)) t.points=Math.max(1,100-i*2)});
+
+const generatedAliases = ["Ace","Blaze","Cipher","Dagger","Echo","Frost","Ghost","Havoc","Iris","Jett","Karma","Knox","Lynx","Mako","Nero","Onyx","Phantom","Quartz","Raven","Raze","Sable","Shade","Titan","Vex","Wraith","Zeno","Aero","Breach","Clutch","Drift","Ember","Flux","Glitch","Hex","Ion","Jinx","Kairo","Nova","Orbit","Pulse","Rift","Storm","Trace","Umbra","Volt","Wolf","Yoru","Zero","K1ro","N0va","S1lent","V1per","R3x","Krow","Nix","Rook","Fable","Keen","M1st","Reign","Skye","Talon","Vanta","Zyro"];
+const generatedRoles = ["AWPer","Rifler","Entry Fragger","Lurker","IGL","Support","Anchor","Flex"];
+const generatedPlayers = Array.from({length:320},(_,i)=>{
+ const alias=generatedAliases[i%generatedAliases.length];
+ const suffix=i<generatedAliases.length?String(11+i):String(100+i);
+ const ovr=58+((i*17+Math.floor(i/7)*3)%37);
+ const role=generatedRoles[i%generatedRoles.length];
+ return {name:alias+suffix, role, ovr, cost:Math.round((ovr*ovr)*(18+((i%5)*2))), salary:Math.round(ovr*ovr*(0.65+(i%4)*0.08)), emoji:["🎯","⚡","🔥","🐺","🧠","🛡️","💥","🎮"][i%8], potential:Math.min(99,ovr+Math.floor((i%7)+1)), age:17+(i%16), nationality:["EU","CIS","BR","NA","ASIA","AU"][i%6]};
+});
+
+
+const realRosters={
+"Team Spirit":["sh1ro","magixx","tN1R","zont1x","donk"],
+"Team Vitality":["apEX","ropz","ZywOo","flameZ","mezii"],
+"MOUZ":["torzsi","Spinx","xertioN","PR","xelex"],
+"FURIA":["FalleN","yuurih","YEKINDAR","KSCERATO","molodoy"],
+"Team Falcons":["karrigan","NiKo","TeSeS","m0NESY","kyousuke"],
+"Aurora Gaming":["XANTARES","woxic","Jimpphat","kyxsan","Wicadia"],
+"Legacy":["arT","dumau","latto","n1ssim","try"],
+"G2 Esports":["huNter-","NertZ","r1nkle","HeavyGod","MATYS"],
+"FUT Esports":["xfl0ud","dem0n","Krabeni","cmtry","dziugss"],
+"Natus Vincere":["Aleksib","iM","b1t","w0nderful","makazze"],
+"Astralis":["HooXi","phzy","jabbi","Staehr","ryu"],
+"MIBR":["LNZ","nqz","insani","venomzera","tomaszin"],
+"FaZe Clan":["frozen","Twistzz","Neityu","jcobbb","JBOEN"],
+"B8":["alex666","npl","kensizor","esenthial","s1zzi"],
+"BETBOOM":["Boombl4","zorte","S1ren","d1Ledez","Magnojez"],
+"GamerLegion":["Snax","REZ","Tauson","FL4MUS","hypex"],
+"3DMAX":["Maka","Lucky","misutaaa","Kursy","Graviti"],
+"Alliance":["twist","eraa","bobeksde","upE","avid"],
+"Inner Circle":["cptkurtka023","headtr1ck","zeRRoFIX","onic","Dawy"],
+"Team Liquid":["NAF","EliGE","malbsMd","JT","Jorko"],
+"M80":["slaxz-","Swisher","s1n","JBa","Lake"],
+"HEROIC":["Brollan","nilo","susp","MartinezSa","Chr1zN"],
+"BIG":["tabseN","JDC","faveN","blameF","gr1ks"],
+"NRG":["nitr0","Sonic","hallzerk","Grim","Jeorge"],
+"paiN Gaming":["biguzera","saffee","snow","Tatu","Rkzinho"],
+"TYLOO":["JamYoung","Jee","Mercury","Moseyuh","Zero"],
+"Lynn Vision":["Westmelon","z4KR","Starry","EmiliaQAQ","C4LLM3SU3"],
+"HOTU":["n0rb3r7","kade0","mizu","dwushka","frontales"],
+"Ninjas in Pyjamas":["stavn","sjuush","Krimbo","adamb","xKacpersky"],
+"Nemiga":["KaiR0N-","Xant3r","robo","khaN","syph0"],
+"Wildcard":["nEMANHA","Cxzi","reck","HexT","fr3nd"],
+"fnatic":["fEAR","jambo","jackasmo","cairne","mazay"],
+"FOKUS":["ztr","Banjo","podi","jocab","Matheos"],
+"Betclic":["Demho","Prism","ex1st","ultimate","Qlocuu"],
+"BBL":["IceBerg","salazar","leakz","Boye","NickyB"]
+};
+const initialPlayers=[
+ {name:"Maks",role:"AWPer",ovr:78,salary:18000,emoji:"🎯"},
+ {name:"NikoJ",role:"Rifler",ovr:75,salary:15000,emoji:"⚡"},
+ {name:"frost",role:"Entry Fragger",ovr:73,salary:12000,emoji:"🔥"},
+ {name:"Lynx",role:"Lurker",ovr:70,salary:10000,emoji:"🐺"},
+ {name:"M1nd",role:"IGL",ovr:69,salary:9000,emoji:"🧠"}
+];
+const marketPlayers=[
+ {name:"s1mple",role:"AWPer",ovr:91,cost:260000,salary:45000,emoji:"🎯"},
+ {name:"ZywOo",role:"AWPer",ovr:94,cost:320000,salary:50000,emoji:"👑"},
+ {name:"ropz",role:"Lurker",ovr:89,cost:230000,salary:38000,emoji:"🐺"},
+ {name:"NiKo",role:"Rifler",ovr:90,cost:250000,salary:42000,emoji:"⚡"},
+ {name:"donk",role:"Entry Fragger",ovr:92,cost:290000,salary:47000,emoji:"🔥"},
+ {name:"rain",role:"Rifler",ovr:82,cost:100000,salary:24000,emoji:"💥"}
+];
+const opponents=topTeams.map(t=>({name:t.name,power:Math.max(55,96-Math.round((t.rank-1)*0.24)),rank:t.rank}));
+
+let state;
+function fresh(){return {club:"Nova Esports",money:500000,rep:12,day:1,base:1,sponsor:false,wins:0,losses:0,fans:1200,players:initialPlayers.map(p=>({...p})),market:[...marketPlayers.map(p=>({...p})),...generatedPlayers.map(p=>({...p}))],marketShown:40,history:[],last:null,trained:0,academy:1,scoutReports:0,scoutResult:"Скаут ещё не отправлен.",map:"Mirage",tactic:"balanced"}}
+function load(){try{let s=localStorage.getItem("csem_save");state=s?JSON.parse(s):fresh()}catch(e){state=fresh()} if(!Array.isArray(state.market))state.market=[];const existing=new Set(state.market.map(p=>p.name));generatedPlayers.forEach(p=>{if(!existing.has(p.name))state.market.push({...p})});if(!state.marketShown)state.marketShown=40;if(!Array.isArray(state.history))state.history=[];if(!Array.isArray(state.players)||state.players.length<5)state.players=initialPlayers.map(p=>({...p}));if(typeof state.money!=="number")state.money=500000;}
+function saveGame(){localStorage.setItem("csem_save",JSON.stringify(state));toast("Карьера сохранена ✓")}
+function money(n){return "€"+Math.round(n).toLocaleString("de-DE")}
+function power(){return Math.round(state.players.reduce((a,p)=>a+p.ovr,0)/state.players.length)}
+function toast(s){let t=document.getElementById("toast");t.textContent=s;t.style.display="block";setTimeout(()=>t.style.display="none",2000)}
+function addNews(s){let n=document.getElementById("news");n.innerHTML="<div>"+s+"</div>"+n.innerHTML;n.innerHTML=n.innerHTML.split("</div>").slice(0,5).join("</div>")+"</div>"}
+function showView(id){document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));render()}
+function render(){
+ const ts=document.getElementById("teamSelect");
+ if(ts && !ts.dataset.ready){ts.innerHTML='<option value="Nova Esports">Создать собственный клуб</option>'+topTeams.map(t=>`<option value="${t.name}">#${t.rank} ${t.name} · ${t.points} pts</option>`).join("");ts.value=[...ts.options].some(o=>o.value===state.club)?state.club:"Nova Esports";ts.dataset.ready="1";}
+ document.getElementById("academyLevel").textContent=state.academy||1;
+ document.getElementById("scoutReports").textContent=state.scoutReports||0;
+ document.getElementById("scoutResult").textContent=state.scoutResult||"Скаут ещё не отправлен.";
+ if(document.getElementById("mapSelect"))document.getElementById("mapSelect").value=state.map||"Mirage";
+ if(document.getElementById("tacticSelect"))document.getElementById("tacticSelect").value=state.tactic||"balanced";
+
+ document.getElementById("money").textContent=money(state.money);document.getElementById("rank").textContent="#"+Math.max(1,128-state.wins*4+state.losses*2);document.getElementById("rep").textContent=state.rep+"/100";document.getElementById("dayTag").textContent="ДЕНЬ "+state.day;
+ document.getElementById("clubTitle").textContent=state.club+" — путь к вершине.";document.getElementById("teamPower").textContent=power()+" OVR";document.getElementById("record").textContent=state.wins+" / "+state.losses;document.getElementById("baseLevel").textContent=state.base;document.getElementById("baseLevel2").textContent=state.base;document.getElementById("fans").textContent=state.fans.toLocaleString("de-DE");document.getElementById("ourName").textContent=state.club.toUpperCase();
+ document.getElementById("players").innerHTML=state.players.map((p,i)=>`<div class="player"><div class="avatar">${p.emoji}</div><div class="grow"><div class="row between"><b>${p.name}</b><span class="tag">${p.role}</span></div><div class="bar"><i style="width:${p.ovr}%"></i></div><div class="tiny muted">Контракт ${money(p.salary)}/мес</div></div><div class="rating">${p.ovr}<div class="tiny muted">OVR</div></div></div>`).join("");
+ document.getElementById("market").innerHTML=state.market.slice(0,state.marketShown||40).map((p,i)=>`<div class="player"><div class="avatar">${p.emoji}</div><div class="grow"><b>${p.name}</b><div class="tiny muted">${p.role} · зарплата ${money(p.salary)}/день</div><div class="tiny">Трансфер: ${money(p.cost)}</div></div><div style="text-align:right"><div class="rating">${p.ovr}</div><button class="secondary" style="padding:7px 9px;margin-top:5px" onclick="buyPlayer(${i})">Подписать</button></div></div>`).join("");
+ const moreBtn=document.getElementById("moreMarket");if(moreBtn){moreBtn.style.display=(state.marketShown||40)>=state.market.length?"none":"block";moreBtn.textContent="Показать ещё игроков ("+Math.min(50,state.market.length-(state.marketShown||40))+" из доступных)";}
+ document.getElementById("basePrice").textContent=state.base>=5?"MAX":money(75000*state.base);document.getElementById("upgradeBtn").disabled=state.base>=5||state.money<75000*state.base;
+ document.getElementById("sponsorStatus").textContent=state.sponsor?"Active · ProGear":"Не подписан";document.getElementById("sponsorBtn").textContent=state.sponsor?"Подписан":"Подписать";document.getElementById("sponsorBtn").disabled=state.sponsor;
+ let op=opponents[(state.wins+state.losses)%opponents.length];document.getElementById("opponent").textContent="vs. "+op.name;
+ if(state.last){document.getElementById("lastUs").textContent=state.last.us;document.getElementById("lastThem").textContent=state.last.them;document.getElementById("oppName").textContent=state.last.opponent.toUpperCase()}else{document.getElementById("lastUs").textContent="—";document.getElementById("lastThem").textContent="—";document.getElementById("oppName").textContent=op.name.toUpperCase()}
+ document.getElementById("results").innerHTML=state.history.length?state.history.slice(0,8).map(h=>`<div>${h.win?"🟢":"🔴"} День ${h.day}: <b>${h.us} : ${h.them}</b> vs ${h.opponent} — ${h.win?"Победа":"Поражение"} (${h.map})</div>`).join(""):"Пока матчей нет. Время открыть сезон!";
+ document.getElementById("standings").innerHTML=[{name:state.club,p:power(),w:state.wins,l:state.losses},...opponents.slice(0,20).map(o=>({name:o.name,p:o.power,w:Math.max(0,6-Math.floor(o.power/20)),l:Math.floor(o.power/25)}))].sort((a,b)=>(b.w*3+b.p/20)-(a.w*3+a.p/20)).map((t,i)=>`<div class="player"><div class="rating">#${i+1}</div><div class="grow"><b>${t.name}</b><div class="tiny muted">${t.w} побед · ${t.l} поражений</div></div><span class="tag">${t.p} OVR</span></div>`).join("");
+ document.getElementById("goals").innerHTML=`<div>${state.wins>=3?"✅":"🎯"} Выиграть 3 матча (${state.wins}/3) — награда €50 000</div><div>${state.rep>=25?"✅":"🎯"} Достичь репутации 25 (${state.rep}/25)</div><div>${state.base>=3?"✅":"🎯"} Улучшить базу до 3 уровня (${state.base}/3)</div>`;
+}
+function playMatch(){
+ let op=opponents[(state.wins+state.losses)%opponents.length];
+ // Model team chemistry, form, tactics and map familiarity instead of a pure random coin flip.
+ let chemistry=state.players.reduce((a,p)=>a+(p.chemistry||65),0)/state.players.length;
+ let form=state.form||0;
+ let tacticBonus=({balanced:1,aggressive:2,defensive:1,tactical:3}[state.tactic||"balanced"]||0);
+ let ours=power()+(chemistry-65)*0.08+form+tacticBonus+(state.trained?3:0)+(Math.random()*10-5);
+ let theirs=op.power+(Math.random()*10-5);
+ let win=ours>=theirs;
+ let totalRounds=24, us,them;
+ if(win){us=13;them=Math.min(11,Math.max(3,Math.round(10-(ours-theirs)*0.45+Math.random()*3)));}
+ else{them=13;us=Math.min(11,Math.max(3,Math.round(10-(theirs-ours)*0.45+Math.random()*3)));}
+ if(us===them) {if(win)them=12;else us=11;}
+ state.last={us,them,opponent:op.name};state.day++;
+ // A loss never costs the club money. Match income is paid for participation; victories add a bonus.
+ state.money+=12000+(win?33000:0);if(state.sponsor)state.money+=18000;
+ if(win){state.wins++;state.rep=Math.min(100,state.rep+2);state.fans+=Math.floor(180+Math.random()*500);state.form=Math.min(4,(state.form||0)+1);state.players.forEach(p=>{p.chemistry=Math.min(99,(p.chemistry||65)+(Math.random()<.35?1:0));if(Math.random()<.12)p.ovr=Math.min(99,p.ovr+1)});}
+ else{state.losses++;state.rep=Math.max(0,state.rep-0.5);state.fans=Math.max(300,state.fans-10);state.form=Math.max(-3,(state.form||0)-1);state.players.forEach(p=>p.chemistry=Math.max(40,(p.chemistry||65)-(Math.random()<.2?1:0)));}
+ state.history.unshift({day:state.day,opponent:op.name,us,them,win,map:state.map||"Mirage",income:12000+(win?33000:0)});state.trained=0;
+ if(state.wins===3){state.money+=50000;addNews("🏆 Цель выполнена: 3 победы! Бонус €50 000 начислен.")}
+ addNews((win?"🏆 Победа над ":"💔 Поражение от ")+op.name+". Счёт "+us+":"+them+". Доход матча: "+money(12000+(win?33000:0))+" — штрафа за поражение нет.");saveGame();render();toast(win?"Победа! +"+money(45000):"Поражение — деньги не списаны");
+}
+
+function showMorePlayers(){state.marketShown=Math.min(state.market.length,(state.marketShown||40)+50);saveGame();render();}
+
+function train(){if(state.money<5000){toast("Недостаточно денег на тренировку");return}if(state.trained){toast("Вы уже тренировались перед матчем");return}state.money-=5000;state.trained=1;let p=state.players[Math.floor(Math.random()*state.players.length)];p.ovr=Math.min(99,p.ovr+1);addNews("🎯 Тренировка завершена. "+p.name+" улучшил навык!");saveGame();render();toast("Команда готова к матчу")}
+function buyPlayer(i){let p=state.market[i];if(!p)return;if(state.money<p.cost){toast("Не хватает денег на трансфер");return}let weak=state.players.reduce((m,x,j)=>x.ovr<state.players[m].ovr?j:m,0);if(p.ovr<=state.players[weak].ovr){toast("Этот игрок слабее твоего худшего игрока");return}if(!confirm("Подписать "+p.name+" за "+money(p.cost)+"? Вместо него уйдёт "+state.players[weak].name+"."))return;state.money-=p.cost;state.players[weak]= {...p};state.market.splice(i,1);addNews("✍️ "+p.name+" подписан в "+state.club+"!");saveGame();render();toast("Трансфер завершён")}
+function upgradeBase(){let c=75000*state.base;if(state.base>=5||state.money<c)return;state.money-=c;state.base++;state.rep=Math.min(100,state.rep+2);addNews("🏢 База улучшена до уровня "+state.base+".");saveGame();render();toast("База улучшена")}
+function sponsor(){if(state.sponsor)return;state.sponsor=true;state.money+=25000;state.rep=Math.min(100,state.rep+2);addNews("🤝 Подписан спонсор ProGear: бонус €25 000 и €18 000 за победу.");saveGame();render();toast("Спонсор подписан")}
+function renameClub(){let v=document.getElementById("clubInput").value.trim();if(!v){toast("Введи название клуба");return}state.club=v;addNews("🛡️ Организация теперь называется "+v+".");saveGame();render();toast("Название обновлено")}
+function resetGame(){if(!confirm("Точно начать новую карьеру? Старое сохранение будет удалено."))return;state=fresh();saveGame();render();toast("Новая карьера началась")}
+
+function chooseTeam(){
+ const name=document.getElementById("teamSelect").value;
+ if(name==="Nova Esports"){state.club=name;addNews("🛡️ Создан собственный клуб Nova Esports.");saveGame();render();return}
+ const t=topTeams.find(x=>x.name===name);if(!t)return;
+ if(!confirm("Начать карьеру за "+name+"? Текущий состав и статистика будут заменены."))return;
+ state.club=name;let names=realRosters[name]||[name+"_A",name+"_B",name+"_C",name+"_D",name+"_E"];
+ let avg=Math.max(62,96-Math.round(t.rank*0.55));
+ state.players=names.map((n,i)=>({name:n,role:["AWPer","Rifler","Entry Fragger","Lurker","IGL"][i],ovr:Math.max(55,Math.min(98,avg+Math.round(Math.random()*8-4))),salary:Math.round((avg*avg)*2.4),emoji:["🎯","⚡","🔥","🐺","🧠"][i]}));
+ state.money=Math.max(180000,620000-t.rank*7000);state.rep=Math.max(15,85-t.rank);state.wins=0;state.losses=0;state.history=[];state.day=1;state.last=null;state.fans=Math.max(900,150000-t.rank*2600);
+ addNews("🏁 Карьера началась за "+name+". Состав загружен в игровой симулятор.");saveGame();render();toast("Карьера за "+name+" началась!");
+}
+function upgradeAcademy(){let lvl=state.academy||1,cost=40000*lvl;if(lvl>=5){toast("Академия уже максимального уровня");return}if(state.money<cost){toast("Недостаточно средств: нужно "+money(cost));return}state.money-=cost;state.academy=lvl+1;state.rep=Math.min(100,state.rep+1);addNews("🎓 Академия улучшена до уровня "+state.academy+".");saveGame();render();toast("Академия улучшена!")}
+function scoutTalent(){if(state.money<8000){toast("Нужно €8 000 на скаутинг");return}state.money-=8000;state.scoutReports=(state.scoutReports||0)+1;let names=["Vex","K1ro","N0va","Pixel","Raze","Echo","Blitz","Fable","Keen","ZeroX"];let name=names[Math.floor(Math.random()*names.length)]+Math.floor(Math.random()*99);let lvl=Math.min(95,55+(state.academy||1)*5+Math.floor(Math.random()*15));let player={name,role:["AWPer","Rifler","Entry Fragger","Lurker","IGL"][Math.floor(Math.random()*5)],ovr:lvl,cost:lvl*1800,salary:lvl*120,emoji:"🌟"};state.market.unshift(player);state.scoutResult="Найден талант "+name+" · "+lvl+" OVR · трансфер "+money(player.cost)+". Он добавлен на рынок.";addNews("🔎 Скаут нашёл игрока "+name+" ("+lvl+" OVR).");saveGame();render();toast("Найден талант: "+name)}
+function saveTactics(){state.map=document.getElementById("mapSelect").value;state.tactic=document.getElementById("tacticSelect").value;saveGame();render();toast("Карта и тактика сохранены")}
+
+load();render();
+</script>
+</body></html>
